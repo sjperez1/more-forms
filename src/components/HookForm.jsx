@@ -1,4 +1,5 @@
 import React, { useState } from  'react';
+import DisplayForm from './DisplayForm';
 const UserForm = () => {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -51,13 +52,15 @@ const UserForm = () => {
     }
     const handleConfirmpassword = (e) => {
         setConfirmpassword(e.target.value);
-        if(e.target.value.length < 8) {
+        if(e.target.value.length < 8 && password !== e.target.value) {
+            setConfirmpassworderror("Confirm password must be longer than 8 characters. Passwords must match.");
+        }else if(e.target.value.length < 8){
             setConfirmpassworderror("Confirm password must be longer than 8 characters.");
-            }else{
-                setConfirmpassworderror("");
-            }
-        if(password !== e.target.value) {
+        }
+        else if(password !== e.target.value) {
             setConfirmpassworderror("Passwords must match.");
+        } else {
+            setConfirmpassworderror("");
         }
     }
 
@@ -66,7 +69,7 @@ const UserForm = () => {
             <form onSubmit={createNewUser}>
                 <div>
                     <label>First Name </label> 
-                    <input type="text" onChange={handleFirstName} />
+                    <input type="text" value={firstname} onChange={handleFirstName} />
                     {
                         firstnameerror ?
                         <p style={{color:'red'}}>{firstnameerror}</p> :
@@ -75,7 +78,7 @@ const UserForm = () => {
                 </div>
                 <div>
                     <label>Last Name </label> 
-                    <input type="text" onChange={handleLastName} />
+                    <input type="text" value={lastname} onChange={handleLastName} />
                     {
                         lastnameerror ?
                         <p style={{color:'red'}}>{lastnameerror}</p> :
@@ -84,7 +87,7 @@ const UserForm = () => {
                 </div>
                 <div>
                     <label>Email </label> 
-                    <input type="text" onChange={handleEmail} />
+                    <input type="text" value={email} onChange={handleEmail} />
                     {
                         emailerror ?
                         <p style={{color:'red'}}>{emailerror}</p> :
@@ -93,7 +96,7 @@ const UserForm = () => {
                 </div>
                 <div>
                     <label>Password </label>
-                    <input type="text" onChange={handlePassword} />
+                    <input type="password" value={password} onChange={handlePassword} />
                     {
                         passworderror ?
                         <p style={{color:'red'}}>{passworderror}</p> :
@@ -102,7 +105,7 @@ const UserForm = () => {
                 </div>
                 <div>
                     <label>Confirm Password </label>
-                    <input type="text" onChange={handleConfirmpassword} />
+                    <input type="password" value={confirmpassword} onChange={handleConfirmpassword} />
                     {
                         confirmpassworderror ?
                         <p style={{color:'red'}}>{confirmpassworderror}</p> :
@@ -111,14 +114,7 @@ const UserForm = () => {
                 </div>
                 <input type="submit" value="Create User" />
             </form>
-            <div>
-                <h3>Your Form Data</h3>
-                <p>First Name {firstname}</p>
-                <p>Last Name {lastname}</p>
-                <p>Email {email}</p>
-                <p>Password {password}</p>
-                <p>Confirm Password {confirmpassword}</p>
-            </div>
+            <DisplayForm firstname={firstname} lastname={lastname} email={email} password={password} confirmpassword={confirmpassword}/>
         </div>
     );
 };
