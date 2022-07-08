@@ -12,5 +12,4 @@ const DisplayForm = (props) => {
         </div>
     )
 }
-
 export default DisplayForm

@@ -112,7 +112,7 @@ const UserForm = () => {
                         ''
                     }
                 </div>
-                <input type="submit" value="Create User" />
+                <button type="submit">Submit</button>
             </form>
             <DisplayForm firstname={firstname} lastname={lastname} email={email} password={password} confirmpassword={confirmpassword}/>
         </div>
